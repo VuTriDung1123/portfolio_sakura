@@ -42,12 +42,13 @@ export default function SakuraNav({ t, currentLang, resumeUrl }: TopNavProps) {
     "projects",
     "blog",
     "gallery",
+    "guestbook",
     "faq",
     "contact",
   ];
 
   const row1 = navItems.slice(0, 7);
-  const row2 = navItems.slice(7, 13);
+  const row2 = navItems.slice(7, 14);
 
   const NavLink = ({ item }: { item: string }) => {
     let label = t[`nav_${item}`] || item.toUpperCase();
@@ -55,10 +56,12 @@ export default function SakuraNav({ t, currentLang, resumeUrl }: TopNavProps) {
     if (item === "experience") label = t.nav_exp || "EXPERIENCE";
     if (item === "projects") label = t.nav_proj || "PROJECTS";
     if (item === "faq") label = "FAQ / HELP";
+    if (item === "guestbook") label = currentLang === "vi" ? "SỔ LƯU BÚT 🎋" : currentLang === "jp" ? "絵馬掛け 🎋" : "GUESTBOOK 🎋";
 
     let href = "";
     if (item === "home") href = "/";
     else if (item === "blog") href = "/blog";
+    else if (item === "guestbook") href = "/guestbook";
     else if (item === "faq") href = "/faq";
     else href = pathname === "/" ? `#${item}` : `/#${item}`;
 
