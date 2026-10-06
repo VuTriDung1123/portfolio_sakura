@@ -41,6 +41,7 @@ export const metadata: Metadata = {
     "Next.js",
   ],
   authors: [{ name: "Vu Tri Dung" }],
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({

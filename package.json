@@ -10,14 +10,17 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@ducanh2912/next-pwa": "^10.2.9",
     "@google/generative-ai": "^0.24.1",
     "@prisma/client": "5.19.1",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@uiw/react-md-editor": "^4.1.2",
+    "bcrypt": "^6.0.0",
     "framer-motion": "^12.35.2",
     "lucide-react": "^0.562.0",
     "next": "^16.1.6",
+    "next-auth": "^4.24.15",
     "nodemailer": "^8.0.5",
     "prisma": "5.19.1",
     "react": "19.2.3",
@@ -29,6 +32,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/bcrypt": "^6.0.0",
     "@types/node": "^20",
     "@types/nodemailer": "^8.0.0",
     "@types/react": "^19",

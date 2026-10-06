@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import SakuraFalling from "@/components/SakuraFalling"; 
 import { checkAdmin, createPost, deletePost, getAllPosts, updatePost, getSectionContent, saveSectionContent, getAnalyticsData } from "@/lib/actions";
 import dynamic from 'next/dynamic';
+import { useSession, signIn, signOut } from "next-auth/react";
 import '@uiw/react-md-editor/markdown-editor.css';
 import '@uiw/react-markdown-preview/markdown.css';
 
@@ -158,7 +159,8 @@ const AiConfigEditor = ({ data, onUpdate }: { data: AiConfigData, onUpdate: (the
 
 // --- MAIN PAGE ---
 export default function AdminPage() {
-  const [isAuth, setIsAuth] = useState(false);
+  const { data: session, status } = useSession();
+  const isAuth = status === "authenticated";
   const [activeTab, setActiveTab] = useState<'blog' | 'content' | 'analytics'>('blog');
 
   // BLOG STATES
@@ -272,8 +274,18 @@ export default function AdminPage() {
   async function handleLogin(e: React.FormEvent<HTMLFormElement>) { 
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const res = await checkAdmin(formData); 
-    if (res.success) setIsAuth(true); else alert("Wrong Password! 🌸"); 
+    const username = formData.get("username") as string;
+    const password = formData.get("password") as string;
+    
+    const res = await signIn("credentials", {
+      username,
+      password,
+      redirect: false,
+    });
+    
+    if (res?.error) {
+      alert("Wrong Password! 🌸");
+    }
   }
   
   const addLinkField = () => setImages([...images, ""]);
@@ -341,6 +353,8 @@ export default function AdminPage() {
       return acc;
   }, {} as Record<string, number>);
 
+  if (status === "loading") return <div style={{display:'flex', height:'100vh', justifyContent:'center', alignItems:'center', background:'#fff9fb'}}><h2 style={{color: '#ff69b4'}}>Checking credentials... 🌸</h2></div>;
+
   if (!isAuth) return ( <div style={{display:'flex', height:'100vh', justifyContent:'center', alignItems:'center', background:'#fff9fb'}}><form onSubmit={handleLogin} style={{...s.card, width:'400px', textAlign:'center'}}><h1 style={{...s.title, marginBottom:'20px'}}>🌸 ADMIN LOGIN</h1><input name="username" placeholder="Username" style={s.input} /><input name="password" type="password" placeholder="Password" style={s.input} /><button style={{...s.btnPrimary, width:'100%', marginTop:'15px'}}>LOGIN TO DASHBOARD</button></form></div> );
 
   return (
@@ -360,7 +374,7 @@ export default function AdminPage() {
               <button onClick={() => setActiveTab('analytics')} style={{...s.navBtn, background: activeTab === 'analytics' ? 'white' : 'transparent', color: activeTab === 'analytics' ? '#ff69b4' : 'white'}}>📊 Analytics</button>
           </div>
           
-          <button onClick={() => setIsAuth(false)} style={{...s.navBtn, background: 'rgba(255,255,255,0.2)', color: 'white', textAlign: 'center'}}>LOGOUT</button>
+          <button onClick={() => signOut()} style={{...s.navBtn, background: 'rgba(255,255,255,0.2)', color: 'white', textAlign: 'center'}}>LOGOUT</button>
       </div>
 
       {/* --- MAIN CONTENT AREA --- */}
