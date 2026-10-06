@@ -2,21 +2,23 @@
 
 import prisma from "./prisma";
 import { revalidatePath } from "next/cache";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-// --- 1. ADMIN AUTH ---
+async function verifyAuth() {
+  const session = await getServerSession(authOptions);
+  if (!session) throw new Error("Unauthorized! You are not the admin 🌸");
+}
+
+// --- 1. ADMIN AUTH (Legacy - Kept for fallback, but NextAuth handles actual login) ---
 export async function checkAdmin(formData: FormData) {
-  const username = formData.get("username") as string;
-  const password = formData.get("password") as string;
-  const VALID_USER = "admin";
-  const VALID_PASS = "Dung2005";
-  if (username?.trim() === VALID_USER && password?.trim() === VALID_PASS) {
-    return { success: true };
-  }
+  // Not strictly used anymore since NextAuth handles it directly
   return { success: false };
 }
 
 // --- 2. BLOG MANAGER (3 LANGUAGES) ---
 export async function createPost(formData: FormData) {
+  await verifyAuth();
   const data = {
     titleVi: (formData.get("titleVi") as string) || "",
     titleEn: (formData.get("titleEn") as string) || "",
@@ -37,6 +39,7 @@ export async function createPost(formData: FormData) {
 }
 
 export async function updatePost(formData: FormData) {
+  await verifyAuth();
   const id = formData.get("id") as string;
   const data = {
     titleVi: (formData.get("titleVi") as string) || "",
@@ -60,6 +63,7 @@ export async function updatePost(formData: FormData) {
 }
 
 export async function deletePost(id: string) {
+  await verifyAuth();
   try {
     await prisma.post.delete({ where: { id } });
     revalidatePath("/");
@@ -106,6 +110,7 @@ export async function getSectionContent(key: string) {
 }
 
 export async function saveSectionContent(formData: FormData) {
+  await verifyAuth();
   const sectionKey = formData.get("sectionKey") as string;
   const contentEn = formData.get("contentEn") as string;
   const contentVi = formData.get("contentVi") as string;
@@ -140,6 +145,7 @@ export async function trackVisit(lang: string, userAgent: string) {
 }
 
 export async function getAnalyticsData() {
+  await verifyAuth(); // Analytics is sensitive
   try {
     const visits = await prisma.visit.findMany({
       orderBy: { createdAt: "desc" },
