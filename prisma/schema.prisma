@@ -34,3 +34,28 @@ model PageSection {
   contentJp   String   @db.Text
   updatedAt   DateTime @updatedAt
 }
+
+model Visit {
+  id        String   @id @default(uuid())
+  lang      String   // 'vi', 'en', 'jp'
+  userAgent String?
+  createdAt DateTime @default(now())
+}
+
+model ChatLog {
+  id        String   @id @default(uuid())
+  mode      String   // 'hacker' hoặc 'sakura'
+  message   String   @db.Text
+  response  String   @db.Text
+  createdAt DateTime @default(now())
+}
+
+model Guestbook {
+  id        String   @id @default(uuid())
+  name      String
+  message   String   @db.Text
+  icon      String   // '🌸', '🍡', '🦊', '⛩️', '🍵'
+  row       Int      @default(0)
+  col       Int      @default(0)
+  createdAt DateTime @default(now())
+}

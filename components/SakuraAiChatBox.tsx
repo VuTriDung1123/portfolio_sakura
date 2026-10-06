@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Lang } from "@/lib/data";
+import { addChatLog } from "@/lib/actions";
 
 const GREETINGS = {
   vi: "Chào bạn! 🌸 Mình là trợ lý ảo của Dũng. Bạn cần giúp gì không?",
@@ -56,6 +57,9 @@ export default function SakuraAiChatBox({
       });
       const data = await res.json();
       setMessages((prev) => [...prev, { role: "ai", content: data.reply }]);
+      
+      // Log chat to DB
+      addChatLog("sakura", userMsg, data.reply);
     } catch {
       setMessages((prev) => [
         ...prev,

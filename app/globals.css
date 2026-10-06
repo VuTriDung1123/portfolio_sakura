@@ -2,11 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Zen+Kurenaido&display=swap'); */
 
 :root {
-  --primary: #ff69b4;
-  --text-main: #4a3b32;
-  --text-light: #795548;
-  --glass: rgba(255, 255, 255, 0.85);
-  --shadow: 0 8px 32px rgba(255, 105, 180, 0.2);
+  --primary: #ff4d85; /* Sâu hơn một chút so với #ff69b4 */
+  --primary-light: #ffb7c5; /* Hồng nhạt Sakura */
+  --primary-gradient: linear-gradient(135deg, #ff8da1 0%, #ff4d85 100%);
+  --text-main: #3e2723; /* Đậm hơn để tăng độ tương phản */
+  --text-light: #6d4c41;
+  --glass: rgba(255, 255, 255, 0.75);
+  --shadow: 0 10px 40px rgba(255, 77, 133, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.6);
 }
 
 * {
@@ -456,11 +459,16 @@ ul {
 
 .hero-name {
   font-size: 4rem;
-  font-weight: 800;
-  color: var(--text-main);
+  font-weight: 900;
   margin-bottom: 10px;
   line-height: 1.1;
-  text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.8), 6px 6px 15px rgba(255, 105, 180, 0.2);
+  text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.9), 4px 4px 15px rgba(255, 77, 133, 0.25);
+  letter-spacing: -1px;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 .hero-names-box {
@@ -504,25 +512,30 @@ ul {
 }
 
 .btn-pink {
-  background: #d81b60;
+  background: var(--primary-gradient);
   color: white;
-  box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+  box-shadow: 0 6px 20px rgba(255, 77, 133, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .btn-pink:hover {
-  transform: translateY(-3px);
-  background: #c2185b;
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(255, 77, 133, 0.5);
+  background: linear-gradient(135deg, #ff4d85 0%, #d81b60 100%);
 }
 
 .btn-white {
-  background: white;
-  color: #c2185b;
-  border: 2px solid #d81b60;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--primary);
+  border: 2px solid var(--primary-light);
+  backdrop-filter: blur(5px);
 }
 
 .btn-white:hover {
-  border-color: #c2185b;
-  background: #fff0f5;
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 6px 20px rgba(255, 183, 197, 0.4);
+  transform: translateY(-4px) scale(1.02);
 }
 
 .hero-image-container {
@@ -572,52 +585,67 @@ ul {
 ========================================= */
 .section-title {
   text-align: center;
-  font-size: 2.5rem;
-  color: #d81b60;
-  margin-bottom: 40px;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 50px;
   position: relative;
   display: inline-block;
   width: 100%;
 }
 
 .section-title span {
-  background: white;
-  padding: 5px 20px;
-  border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 8px 24px;
+  border-radius: 30px;
+  box-shadow: 0 8px 25px rgba(255, 77, 133, 0.12);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
   position: relative;
   z-index: 1;
 }
 
+/* Thêm class text-gradient */
+.text-gradient-sakura {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
 .glass-box {
-  background: rgba(255, 255, 255, 0.75);
+  background: var(--glass);
   padding: 40px;
   border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 8px 32px rgba(255, 105, 180, 0.1);
-  transition: box-shadow 0.4s ease, transform 0.4s ease;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .glass-box:hover {
-  box-shadow: 0 15px 45px rgba(255, 105, 180, 0.2);
-  transform: translateY(-5px);
+  box-shadow: 0 15px 50px rgba(255, 77, 133, 0.25);
+  transform: translateY(-8px);
 }
 
 .project-card {
   background: var(--glass);
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 25px rgba(255, 77, 133, 0.1);
   display: block;
-  transition: 0.3s;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
 }
 
 .project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(255, 77, 133, 0.25);
+  border-color: rgba(255, 255, 255, 0.9);
 }
 
 .project-card .img-wrapper,
@@ -1046,3 +1074,62 @@ button:disabled,
     border-radius: 20px !important;
   }
 }
+
+/* CAROUSEL SAKURA */
+.carousel-wrapper { position: relative; display: flex; align-items: center; margin: 0 -10px; }
+.carousel-container { display: flex; overflow-x: auto; gap: 30px; padding: 15px 10px; width: 100%; scrollbar-width: none; scroll-snap-type: x mandatory; }
+.carousel-container::-webkit-scrollbar { display: none; }
+.carousel-container > * { scroll-snap-align: start; flex-shrink: 0; min-width: 300px !important; width: 300px !important; }
+.nav-btn { 
+    background: white; color: #ff69b4; border: 2px solid #ffb7b2; border-radius: 50%;
+    font-size: 20px; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; 
+    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.2); z-index: 2; flex-shrink: 0;
+}
+.nav-btn:hover { background: #ff69b4; color: white; transform: scale(1.1); }
+.prev-btn { margin-right: -15px; }
+.next-btn { margin-left: -15px; }
+/* =========================================
+   <؋� EMA BOARD (GUESTBOOK)
+========================================= */
+.ema-card {
+  background: linear-gradient(135deg, #f5d3a5, #d2a679);
+  clip-path: polygon(50% 0%, 100% 15%, 100% 100%, 0% 100%, 0% 15%);
+  width: 160px;
+  height: 220px;
+  padding: 40px 15px 15px;
+  position: relative;
+  box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  color: #4e342e;
+  font-family: 'Noto Serif JP', serif;
+  transform-origin: top center;
+  animation: emaSwing 3s infinite ease-in-out alternate;
+}
+
+@keyframes emaSwing {
+  0% { transform: rotate(-3deg); }
+  100% { transform: rotate(3deg); }
+}
+
+.ema-hole {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.ema-string {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  width: 2px;
+  height: 40px;
+  background: #c62828;
+}
+

@@ -124,3 +124,115 @@ export async function saveSectionContent(formData: FormData) {
     return { success: false };
   }
 }
+
+// --- 4. ANALYTICS (TRACKING) ---
+export async function trackVisit(lang: string, userAgent: string) {
+  try {
+    await prisma.visit.create({
+      data: {
+        lang: lang,
+        userAgent: userAgent,
+      }
+    });
+  } catch (error) {
+    console.error("Tracking error:", error);
+  }
+}
+
+export async function getAnalyticsData() {
+  try {
+    const visits = await prisma.visit.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 1000,
+    });
+    const chatLogs = await prisma.chatLog.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 100,
+    });
+    
+    return { visits, chatLogs };
+  } catch (error) {
+    console.error("Fetch analytics error:", error);
+    return { visits: [], chatLogs: [] };
+  }
+}
+
+export async function addChatLog(mode: string, message: string, response: string) {
+  try {
+    await prisma.chatLog.create({
+      data: {
+        mode,
+        message,
+        response,
+      }
+    });
+  } catch (error) {
+    console.error("Chat log error:", error);
+  }
+}
+
+// --- 5. GUESTBOOK (EMA BOARD) ---
+export async function getGuestbookEntries() {
+  try {
+    return await prisma.guestbook.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 50,
+    });
+  } catch (error) {
+    console.error("Guestbook fetch error:", error);
+    return [];
+  }
+}
+
+export async function addGuestbookEntry(formData: FormData) {
+  const name = formData.get("name") as string;
+  const message = formData.get("message") as string;
+  const icon = formData.get("icon") as string;
+  const row = parseInt(formData.get("row") as string) || 0;
+  const col = parseInt(formData.get("col") as string) || 0;
+
+  if (!name || !message || !icon) return { success: false };
+
+  try {
+    await prisma.guestbook.create({
+      data: { name, message, icon, row, col }
+    });
+    revalidatePath("/");
+    return { success: true };
+  } catch (error) {
+    console.error("Guestbook add error:", error);
+    return { success: false };
+  }
+}
+
+// --- 6. OPTIMIZED BULK FETCH ---
+export async function getHomePageData() {
+  try {
+    const [allPosts, pageSections] = await Promise.all([
+      prisma.post.findMany({ orderBy: { createdAt: "desc" } }),
+      prisma.pageSection.findMany()
+    ]);
+    
+    const dynamicSections = pageSections.reduce((acc, section) => {
+      acc[section.sectionKey] = section;
+      return acc;
+    }, {} as Record<string, any>);
+
+    return {
+      dbUniProjects: allPosts.filter(p => p.tag === "uni_projects"),
+      dbPersonalProjects: allPosts.filter(p => p.tag === "personal_projects"),
+      dbItEvents: allPosts.filter(p => p.tag === "it_events"),
+      dbOtherEvents: allPosts.filter(p => p.tag === "other_events"),
+      dbLangCerts: allPosts.filter(p => p.tag === "lang_certs"),
+      dbTechCerts: allPosts.filter(p => p.tag === "tech_certs"),
+      dbOtherCerts: allPosts.filter(p => p.tag === "other_certs"),
+      dbAchievements: allPosts.filter(p => p.tag === "achievements"),
+      latestPosts: allPosts.slice(0, 3),
+      dynamicSections,
+    };
+  } catch (error) {
+    console.error("Failed to fetch home page data:", error);
+    return null;
+  }
+}
+
