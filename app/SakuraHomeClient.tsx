@@ -7,6 +7,7 @@ import Image from "next/image";
 
 import SakuraCursorTrail from "@/components/SakuraCursorTrail";
 import SakuraFalling from "@/components/SakuraFalling";
+import JapaneseScroll from "@/components/JapaneseScroll";
 import SakuraNav from "@/components/SakuraNav";
 import { translations, Lang } from "@/lib/data";
 import { trackVisit } from "@/lib/actions";
@@ -517,6 +518,7 @@ export default function SakuraHomeClient({ initialData }: { initialData: any }) 
                 }}
               >
                 <ScrollReveal>
+<JapaneseScroll>
                   <h2 className="section-title">
                     <span>✿ {t.sec_about} ✿</span>
                   </h2>
@@ -529,7 +531,8 @@ export default function SakuraHomeClient({ initialData }: { initialData: any }) 
                   ) : (
                     <EmptyState lang={currentLang} />
                   )}
-                </ScrollReveal>
+                </JapaneseScroll>
+</ScrollReveal>
               </section>
 
               <section
@@ -537,6 +540,7 @@ export default function SakuraHomeClient({ initialData }: { initialData: any }) 
                 style={{ padding: "80px 0", scrollMarginTop: "100px" }}
               >
                 <ScrollReveal>
+<JapaneseScroll>
                   <h2 className="section-title">
                     <span>✿ {t.sec_profile} ✿</span>
                   </h2>
@@ -605,7 +609,8 @@ export default function SakuraHomeClient({ initialData }: { initialData: any }) 
                   ) : (
                     <EmptyState lang={currentLang} />
                   )}
-                </ScrollReveal>
+                </JapaneseScroll>
+</ScrollReveal>
               </section>
 
               <section
@@ -613,6 +618,7 @@ export default function SakuraHomeClient({ initialData }: { initialData: any }) 
                 style={{ padding: "80px 0", scrollMarginTop: "100px" }}
               >
                 <ScrollReveal>
+<JapaneseScroll>
                   <h2 className="section-title">
                     <span>✿ {t.sec_cert} ✿</span>
                   </h2>
@@ -795,7 +801,8 @@ export default function SakuraHomeClient({ initialData }: { initialData: any }) 
                       />
                     )}
                   </div><button className="nav-btn next-btn" onClick={() => scrollCarousel("other-certs", 1)}>&#10095;</button></div>
-                </ScrollReveal>
+                </JapaneseScroll>
+</ScrollReveal>
               </section>
 
               <section
@@ -803,6 +810,7 @@ export default function SakuraHomeClient({ initialData }: { initialData: any }) 
                 style={{ padding: "80px 0", scrollMarginTop: "100px" }}
               >
                 <ScrollReveal>
+<JapaneseScroll>
                   <h2 className="section-title">
                     <span>✿ {t.sec_career} ✿</span>
                   </h2>
@@ -826,7 +834,8 @@ export default function SakuraHomeClient({ initialData }: { initialData: any }) 
                   ) : (
                     <EmptyState lang={currentLang} />
                   )}
-                </ScrollReveal>
+                </JapaneseScroll>
+</ScrollReveal>
               </section>
 
               <section
@@ -834,6 +843,7 @@ export default function SakuraHomeClient({ initialData }: { initialData: any }) 
                 style={{ padding: "80px 0", scrollMarginTop: "100px" }}
               >
                 <ScrollReveal>
+<JapaneseScroll>
                   <h2 className="section-title">
                     <span>✿ {t.sec_achievements} ✿</span>
                   </h2>
@@ -889,7 +899,8 @@ export default function SakuraHomeClient({ initialData }: { initialData: any }) 
                   ) : (
                     <EmptyState lang={currentLang} />
                   )}
-                </ScrollReveal>
+                </JapaneseScroll>
+</ScrollReveal>
               </section>
 
               <section
@@ -984,6 +995,7 @@ export default function SakuraHomeClient({ initialData }: { initialData: any }) 
                 style={{ padding: "80px 0", scrollMarginTop: "100px" }}
               >
                 <ScrollReveal>
+<JapaneseScroll>
                   <h2 className="section-title">
                     <span>✿ {t.sec_exp} ✿</span>
                   </h2>
@@ -1093,7 +1105,8 @@ export default function SakuraHomeClient({ initialData }: { initialData: any }) 
                   ) : (
                     <EmptyState lang={currentLang} />
                   )}
-                </ScrollReveal>
+                </JapaneseScroll>
+</ScrollReveal>
               </section>
 
               <section
@@ -1516,6 +1529,7 @@ export default function SakuraHomeClient({ initialData }: { initialData: any }) 
                 }}
               >
                 <ScrollReveal>
+<JapaneseScroll>
                   <div
                     style={{
                       textAlign: "center",
@@ -1689,7 +1703,8 @@ export default function SakuraHomeClient({ initialData }: { initialData: any }) 
                       <EmptyState lang={currentLang} />
                     )}
                   </div>
-                </ScrollReveal>
+                </JapaneseScroll>
+</ScrollReveal>
               </section>
             </div>
           </div>

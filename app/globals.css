@@ -462,13 +462,31 @@ ul {
   font-weight: 900;
   margin-bottom: 10px;
   line-height: 1.1;
-  text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.9), 4px 4px 15px rgba(255, 77, 133, 0.25);
   letter-spacing: -1px;
-  background: var(--primary-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
+  
+  /* Traditional Japanese Red (Deep lacquer red) instead of transparent gradient */
+  color: #a70000; 
+  text-shadow: 2px 2px 0px #fff, 3px 3px 0px #f9a825, 4px 4px 15px rgba(167,0,0,0.3);
+  position: relative;
+  display: inline-block;
+}
+
+/* Japanese Hanko (Seal stamp) next to the name */
+.hero-name::after {
+  content: '印'; /* "Seal" in Kanji */
+  position: absolute;
+  bottom: 5px;
+  right: -35px;
+  font-size: 1.1rem;
+  color: #c62828;
+  border: 2px solid #c62828;
+  border-radius: 4px;
+  padding: 1px 3px;
+  font-family: 'Noto Serif', serif;
+  font-weight: bold;
+  transform: rotate(-8deg); /* Slight natural rotation */
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.7);
 }
 
 .hero-names-box {
@@ -595,14 +613,49 @@ ul {
 }
 
 .section-title span {
-  background: rgba(255, 255, 255, 0.85);
-  padding: 8px 24px;
-  border-radius: 30px;
-  box-shadow: 0 8px 25px rgba(255, 77, 133, 0.12);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(10px);
   position: relative;
+  display: inline-block;
+  padding: 20px 70px;
+  color: #8e0000; 
+  font-family: 'Noto Serif', 'Times New Roman', serif;
+  font-weight: 900;
+  letter-spacing: 2px;
   z-index: 1;
+  text-shadow: 1px 1px 0px rgba(255,255,255,1), 2px 2px 4px rgba(142,0,0,0.2);
+}
+
+/* The 3D Red Lacquer board with Japanese SVG pattern */
+.section-title span::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #8e0000;
+  background-image: 
+    linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.6) 100%), /* 3D Lighting */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1.5' stroke-opacity='0.15'%3E%3Ccircle cx='20' cy='20' r='20'/%3E%3Ccircle cx='0' cy='0' r='20'/%3E%3Ccircle cx='40' cy='0' r='20'/%3E%3Ccircle cx='0' cy='40' r='20'/%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3C/g%3E%3C/svg%3E");
+  border-radius: 12px;
+  border: 2px solid #ffca28; /* Golden rim */
+  box-shadow: 
+    0 15px 30px rgba(142, 0, 0, 0.4), /* Drop shadow */
+    inset 0 0 0 2px #ff8f00, /* Inner gold depth */
+    inset 0 5px 15px rgba(0,0,0,0.5); /* Inner frame shadow */
+  z-index: -2;
+}
+
+/* The 3D White paper card inside */
+.section-title span::after {
+  content: '';
+  position: absolute;
+  top: 12px; left: 12px; right: 12px; bottom: 12px;
+  background: linear-gradient(135deg, #ffffff 0%, #fff0f5 100%);
+  border-radius: 6px;
+  border: 2px solid #e57373;
+  z-index: -1;
+  box-shadow: 
+    0 5px 15px rgba(0,0,0,0.4), /* Drop shadow on the red board */
+    inset 0 0 0 2px #fffafa, /* Space between double borders */
+    inset 0 0 0 3px #ef5350, /* Inner red border */
+    inset 0 0 20px rgba(255,183,178,0.2); /* Inner soft glow */
 }
 
 /* Thêm class text-gradient */
@@ -616,36 +669,40 @@ ul {
 }
 
 .glass-box {
-  background: var(--glass);
+  background: #fffafa; /* Light sakura white */
+  background-image: radial-gradient(#ffd1dc 1px, transparent 1px);
+  background-size: 20px 20px;
   padding: 40px;
-  border-radius: 30px;
-  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  border: 2px solid #ffb7b2;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: var(--shadow);
+  box-shadow: 0 10px 30px rgba(255, 183, 178, 0.2);
   transition: box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .glass-box:hover {
-  box-shadow: 0 15px 50px rgba(255, 77, 133, 0.25);
+  box-shadow: 0 15px 50px rgba(255, 105, 180, 0.3);
   transform: translateY(-8px);
 }
 
 .project-card {
-  background: var(--glass);
+  background: #fffafa; /* Light sakura white */
+  background-image: radial-gradient(#ffd1dc 1px, transparent 1px);
+  background-size: 20px 20px;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 8px 25px rgba(255, 77, 133, 0.1);
+  box-shadow: 0 10px 30px rgba(255, 183, 178, 0.2);
   display: block;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border: 1px solid var(--glass-border);
+  border: 2px solid #ffb7b2;
   backdrop-filter: blur(10px);
 }
 
 .project-card:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 15px 40px rgba(255, 77, 133, 0.25);
-  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 15px 50px rgba(255, 105, 180, 0.3);
+  border-color: #ff69b4;
 }
 
 .project-card .img-wrapper,
